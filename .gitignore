@@ -131,9 +131,5 @@ dmypy.json
 # IDE
 .vscode/
 
-# PIP
-Pipfile
-Pipfile.lock
-
 # Other
 shutdownlist.txt
