@@ -59,15 +59,17 @@ def find_idle_instances(region, tag_key, tag_values,
                                              EndTime=now,
                                              MetricName='CPUUtilization',
                                              Namespace='AWS/EC2',
-                                             Statistics=['Average'],
+                                             Statistics=['Average', 'Maximum', 'Minimum'],
                                              Dimensions=dim)
 
             # print those metrics!!
             if metric['Datapoints']:
-                average = metric['Datapoints'][0]['Average']
-                print("Average for %s is %f. Minimum is %f" \
-                      % (i['InstanceId'], average, minimum))
-                if average < minimum:
+                averagedp = metric['Datapoints'][0]['Average']
+                maximumdp = metric['Datapoints'][0]['Maximum']
+                minimumdp = metric['Datapoints'][0]['Minimum']
+                print("Metrics for %s are: Average: %f, Maximum: %f, Minimum: %f. Minimum acceptable is %f" \
+                      % (i['InstanceId'], averagedp, maximumdp, minimumdp, minimum))
+                if averagedp < minimum:
                     print("We should terminate instance %s. Adding to report: shutdownlist.txt" % i['InstanceId'])
                     fout.write(i['InstanceId']+'\n')
 
