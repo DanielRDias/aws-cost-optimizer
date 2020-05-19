@@ -1,26 +1,52 @@
 # aws-cost-optimizer
 
-## Runbook - Add and manage apps
+## Development setup
 
-## Add new App
+### Get Started
+
+Install requirements
 
 ``` bash
-cd cloudmanager
-python manage.py startapp <AppName>
+npm install
+pipenv install
 ```
 
-## Update App
+Start webpack
 
 ``` bash
-cd cloudmanager
-python manage.py makemigrations <AppName>
+npm run dev
 ```
 
-### Run server
+Build production webpack
 
 ``` bash
-cd cloudmanager
-python manage.py runserver
+npm run build
+```
+
+Start Django server
+
+``` bash
+python cloudmanager/manage.py runserver
+```
+
+## Runbook - Add and manage Django Apps
+
+## Add new Django App
+
+``` bash
+python cloudmanager/manage.py startapp <AppName>
+```
+
+## Migrate Django App
+
+``` bash
+python cloudmanager/manage.py makemigrations <AppName>
+```
+
+### Run Django server
+
+``` bash
+python cloudmanager/manage.py runserver
 ```
 
 ``` text
