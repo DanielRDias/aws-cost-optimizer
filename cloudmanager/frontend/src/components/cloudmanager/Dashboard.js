@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import Form from "./Form";
-import Accounts from "./Accounts";
+import Accounts from "./CloudManager";
 
 export default function Dashboard() {
   return (
