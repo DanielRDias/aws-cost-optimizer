@@ -1,6 +1,13 @@
 import axios from "axios";
+import { createMessage } from "./messages";
 
-import { GET_AWSACCOUNTS, DELETE_AWSACCOUNT, ADD_AWSACCOUNT } from "./types";
+import {
+  GET_AWSACCOUNTS,
+  DELETE_AWSACCOUNT,
+  ADD_AWSACCOUNT,
+  GET_ERRORS,
+} from "./types";
+import { createStore } from "redux";
 
 // GET AWSACCOUNTS
 export const getAwsAccounts = () => (dispatch) => {
@@ -20,6 +27,7 @@ export const deleteAwsAccount = (id) => (dispatch) => {
   axios
     .delete(`/api/awsoptimizer/${id}`)
     .then((res) => {
+      dispatch(createMessage({ awsAccountDeleted: "AWS Account Deleted" }));
       dispatch({
         type: DELETE_AWSACCOUNT,
         payload: id,
@@ -33,10 +41,20 @@ export const addAwsAccount = (awsaccount) => (dispatch) => {
   axios
     .post("/api/awsoptimizer/", awsaccount)
     .then((res) => {
+      dispatch(createMessage({ awsAccountCreated: "AWS Account Created" }));
       dispatch({
         type: ADD_AWSACCOUNT,
         payload: res.data,
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      const errors = {
+        msg: err.response.data,
+        stateus: err.response.status,
+      };
+      dispatch({
+        type: GET_ERRORS,
+        payload: errors,
+      });
+    });
 };
