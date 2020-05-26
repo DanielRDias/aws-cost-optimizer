@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createMessage } from "./messages";
+import { createMessage, returnErrors } from "./messages";
 
 import {
   GET_AWSACCOUNTS,
@@ -19,7 +19,9 @@ export const getAwsAccounts = () => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 // DELETE AWSACCOUNT
@@ -47,14 +49,7 @@ export const addAwsAccount = (awsaccount) => (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
-      const errors = {
-        msg: err.response.data,
-        stateus: err.response.status,
-      };
-      dispatch({
-        type: GET_ERRORS,
-        payload: errors,
-      });
-    });
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
