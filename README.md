@@ -1,3 +1,5 @@
+# I am not working on this project at the moment since most of the features I was working on are now part of [AWS Compute Optimizer](https://aws.amazon.com/compute-optimizer/)
+
 # aws-cost-optimizer
 
 ## Development setup
